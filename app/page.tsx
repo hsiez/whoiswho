@@ -1,6 +1,5 @@
 'use client';
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import UrlInput from "./components/url-input";
 import CopyCode from "./components/copy-code";
@@ -57,18 +56,20 @@ export default function Home() {
     }
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.usernameBoxContainer}>
           <UrlInput 
-            site="bluesky" 
             placeholder="https://bsky.app/post/url" 
             onChange={setBlueskyUrl}
             error={blueskyError}
           />
           <UrlInput 
-            site="x" 
             placeholder="https://x.com/post/url" 
             onChange={setXUrl}
             error={xError}

@@ -41,9 +41,9 @@ export async function GET(request: Request) {
     const containsCode = tweetText.includes(code);
     return NextResponse.json({ success: true, verified: containsCode });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   } finally {

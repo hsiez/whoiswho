@@ -5,13 +5,12 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import styles from './url-input.module.css';
 
 type UrlInputProps = {
-  site: string;
   placeholder: string;
   onChange: (value: string) => void;
   error?: string;
 }
 
-export default function UrlInput({ site, placeholder, onChange, error }: UrlInputProps) {
+export default function UrlInput({ placeholder, onChange, error }: UrlInputProps) {
   const [url, setUrl] = useState('');
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {

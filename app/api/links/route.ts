@@ -34,9 +34,9 @@ export async function POST(request: Request) {
     if (error) throw error;
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
@@ -55,7 +55,7 @@ export async function GET(request: Request) {
     }
 
     // Try finding by x-id first
-    let { data: xData } = await supabase
+    const { data: xData } = await supabase
       .from('links')
       .select('bs-id')
       .eq('x-id', username)
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
     }
 
     // If not found, try by bs-id
-    let { data: bsData } = await supabase
+    const { data: bsData } = await supabase
       .from('links')
       .select('x-id')
       .eq('bs-id', username)
@@ -81,9 +81,9 @@ export async function GET(request: Request) {
       { status: 404 }
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
