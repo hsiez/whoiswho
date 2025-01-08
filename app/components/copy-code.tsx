@@ -3,42 +3,43 @@
 import { useState, useEffect } from 'react';
 import { CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import styles from './copy-code.module.css';
+import { useExpandableGrid } from './expandable-grid';
 
 interface CopyCodeProps {
   setVerificationCode: (code: string) => void;
   verificationCode: string;
 }
 
-export default function CopyCode({ setVerificationCode, verificationCode }: CopyCodeProps) {
+export default function CopyCode({ 
+  setVerificationCode, 
+  verificationCode,
+}: CopyCodeProps) {
   const [copied, setCopied] = useState(false);
+  const { isExpanded } = useExpandableGrid();
 
   useEffect(() => {
     setVerificationCode(crypto.randomUUID());
-  }, []);
+  }, [isExpanded]);
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(verificationCode);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     } catch (err) {
       console.error('Failed to copy text: ', err);
     }
   };
 
+  if (isExpanded) return null;
+
   return (
     <div className={styles.container}>
-      <code className={styles.code}>{verificationCode}</code>
-      <button
+      <button 
         onClick={copyToClipboard}
-        className={styles.button}
-        title="Copy to clipboard"
+        className={styles.code}
+        data-copied={copied ? '' : undefined}
       >
-        {copied ? (
-          <CheckIcon className={styles.iconSuccess} />
-        ) : (
-          <ClipboardIcon className={styles.icon} />
-        )}
+        <span>{verificationCode}</span>
       </button>
     </div>
   );

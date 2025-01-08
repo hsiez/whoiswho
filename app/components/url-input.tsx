@@ -1,13 +1,12 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import styles from './url-input.module.css';
 
 type UrlInputProps = {
   placeholder: string;
   onChange: (value: string) => void;
-  error?: string;
+  error?: string | null;
 }
 
 export default function UrlInput({ placeholder, onChange, error }: UrlInputProps) {
@@ -28,13 +27,19 @@ export default function UrlInput({ placeholder, onChange, error }: UrlInputProps
           placeholder={placeholder}
           className={styles.input}
         />
-        <div className={styles.iconContainer}>
-          {error && (
-            <ExclamationTriangleIcon className={styles.errorIcon} />
-          )}
-        </div>
       </div>
-      {error && <p className={styles.errorText}>{error}</p>}
+      {error && 
+      <div className={styles.errorContainer}>
+        <img 
+          src="/alert-triangle.svg"
+          alt="Error"
+          width={12}
+          height={12}
+        />
+        <p className={styles.errorText}>{error}</p>
+      </div>
+      }
+
     </div>
   );
 }

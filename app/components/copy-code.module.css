@@ -2,35 +2,42 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
 }
 
 .code {
   padding: 4px 8px;
   border-radius: 4px;
   font-family: monospace;
-}
-
-.button {
-  padding: 8px;
-  border-radius: 50%;
-  transition: background-color 0.2s;
-  cursor: pointer;
-  border: none;
   background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
 }
 
-.button:hover {
-  background-color: #f3f4f6;
+/* Create a pseudo-element for the actual text content that can fade */
+.code span {
+  display: block;
+  transition: opacity 150ms;
 }
 
-.icon {
-  height: 20px;
-  width: 20px;
-  color: #6b7280;
+.code:hover span {
+  opacity: 0.05;
 }
 
-.iconSuccess {
-  height: 20px;
-  width: 20px;
-  color: #22c55e;
+.code::after {
+  content: 'copy';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  color: #1b1b1b;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+
+.code:hover::after {
+  opacity: 1;
 }
