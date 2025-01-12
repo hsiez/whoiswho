@@ -6,6 +6,8 @@ import styles from './expandable-grid.module.css';
 
 interface ExpandableGridContextValue {
   isExpanded: boolean;
+  setIsExpanded: (value: boolean) => void;
+  externalTitle?: string;
 }
 
 const ExpandableGridContext = createContext<ExpandableGridContextValue | undefined>(undefined);
@@ -13,19 +15,21 @@ const ExpandableGridContext = createContext<ExpandableGridContextValue | undefin
 interface ExpandableGridProps {
   children: ReactNode;
   onCopy?: () => void;
+  externalTitle?: string;
 }
 
-export default function ExpandableGrid({ children }: ExpandableGridProps) {
+export default function ExpandableGrid({ children, externalTitle }: ExpandableGridProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
   return (
-    <ExpandableGridContext.Provider value={{ isExpanded }}>
-      <div className={styles.gridTitleContainer}>
-        <p className={styles.gridTitle}>
-          {isExpanded ? '' : 'Post the code below from both X and Bluesky'}
+    <ExpandableGridContext.Provider value={{ isExpanded, setIsExpanded }}>
+        <div className={styles.gridTitleContainer}>
+          <p className={styles.gridTitle}>
+            {isExpanded ? '' : externalTitle}
         </p>
       </div>
-      <div className={`${styles.gridContainer} ${isExpanded ? styles.expanded : ''}`}>
+      <div className={`${styles.gridContainer} ${isExpanded ? styles.expanded : ''} ${isExiting ? styles.fadeOut : ''}`}>
         <div 
           className={styles.gridContent}
           onClick={() => !isExpanded && setIsExpanded(true)}
@@ -46,11 +50,6 @@ export default function ExpandableGrid({ children }: ExpandableGridProps) {
               height={24}
             />
           </button>
-          <div className={styles.gridTitleExpandedContainer}>
-            <p className={styles.gridTitle}>
-              Provide the urls of the posts
-            </p>
-          </div>
         </>
         )}
       </div>

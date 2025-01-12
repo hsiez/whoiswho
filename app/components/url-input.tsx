@@ -19,27 +19,20 @@ export default function UrlInput({ placeholder, onChange, error }: UrlInputProps
 
   return (
     <div className={styles.container}>
-      <div className={styles.inputWrapper}>
+      <div className={`${styles.inputWrapper} ${error ? styles.error : ''}`}>
         <input
           type="url"
           value={url}
           onChange={handleChange}
           placeholder={placeholder}
-          className={styles.input}
+          className={`${styles.input} ${error ? styles.error : ''}`}
         />
       </div>
       {error && 
       <div className={styles.errorContainer}>
-        <img 
-          src="/alert-triangle.svg"
-          alt="Error"
-          width={12}
-          height={12}
-        />
         <p className={styles.errorText}>{error}</p>
       </div>
       }
-
     </div>
   );
 }

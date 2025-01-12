@@ -11,17 +11,20 @@ import { createLink } from '../utils/database';
 
 interface PostFormProps {
   verificationCode: string;
+  onLinkSuccess: () => void;
 }
 
 export default function PostForm({
-  verificationCode
+  verificationCode,
+  onLinkSuccess,
 }: PostFormProps) {
 
   const [blueskyUrl, setBlueskyUrl] = useState('');
   const [xUrl, setXUrl] = useState('');
   const [blueskyError, setBlueskyError] = useState('');
   const [xError, setXError] = useState('');
-  const { isExpanded } = useExpandableGrid();
+  const { isExpanded, setIsExpanded } = useExpandableGrid();
+  const [isLinkSuccess, setIsLinkSuccess] = useState(false);
 
   if (!isExpanded) return null;
 
@@ -46,24 +49,34 @@ export default function PostForm({
       // If both verifications succeed, create the link
       if (blueskyResult && xResult) {
         const linkCreated = await createLink(
-          xUrl.split('x.com/')[1].split('/')[0],  // Extract X username from URL
-          blueskyUrl.split('/profile/')[1].split('/post/')[0]  // Extract Bluesky handle
+          xUrl.split('x.com/')[1].split('/')[0],
+          blueskyUrl.split('/profile/')[1].split('/post/')[0]
         );
         
-        if (!linkCreated) {
+        if (linkCreated) {
+          setIsLinkSuccess(true);
+          setIsExpanded(false);
+          onLinkSuccess();
+        } else {
           console.error("Failed to create link");
         }
       }
 
     } catch (error) {
       console.error("Verification failed:", error);
-      console.log("false");
-    } finally {
     }
   };
 
+  if (!isExpanded) return null;
+
   return (
-    <div className={gridStyles.gridContent}>
+    <>
+      <div className={gridStyles.gridTitleExpandedContainer}>
+        <p className={gridStyles.gridTitle}>
+          Paste the post URLs
+        </p>
+      </div>
+      <div className={gridStyles.gridContent}>
         <div className={gridStyles.firstUrlInput}>
             <UrlInput 
                 placeholder="https://bsky.app/post/url" 
@@ -78,11 +91,13 @@ export default function PostForm({
                 error={xError}
             />
         </div>
-        <PrimaryButton 
-            text="Link Posts"
+      </div>
+      <div className={gridStyles.buttonContainer}>
+        <PrimaryButton
+            text="Submit"
             onClick={handleButtonClick}
-            className={gridStyles.linkButton}
         />
-    </div>
+      </div>
+    </>
   );
 } 

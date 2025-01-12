@@ -19,7 +19,7 @@ export default function CopyCode({
 
   useEffect(() => {
     setVerificationCode(crypto.randomUUID());
-  }, [isExpanded]);
+  }, []);
 
   const copyToClipboard = async () => {
     try {
