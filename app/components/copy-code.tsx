@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { CheckIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import styles from './copy-code.module.css';
 import { useExpandableGrid } from './expandable-grid';
 

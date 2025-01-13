@@ -20,7 +20,6 @@ interface ExpandableGridProps {
 
 export default function ExpandableGrid({ children, externalTitle }: ExpandableGridProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
 
   return (
     <ExpandableGridContext.Provider value={{ isExpanded, setIsExpanded }}>
@@ -29,7 +28,7 @@ export default function ExpandableGrid({ children, externalTitle }: ExpandableGr
             {isExpanded ? '' : externalTitle}
         </p>
       </div>
-      <div className={`${styles.gridContainer} ${isExpanded ? styles.expanded : ''} ${isExiting ? styles.fadeOut : ''}`}>
+      <div className={`${styles.gridContainer} ${isExpanded ? styles.expanded : ''}`}>
         <div 
           className={styles.gridContent}
           onClick={() => !isExpanded && setIsExpanded(true)}

@@ -24,8 +24,7 @@ export default function PostForm({
   const [blueskyError, setBlueskyError] = useState('');
   const [xError, setXError] = useState('');
   const { isExpanded, setIsExpanded } = useExpandableGrid();
-  const [isLinkSuccess, setIsLinkSuccess] = useState(false);
-
+  
   if (!isExpanded) return null;
 
   const handleButtonClick = async () => {
@@ -54,7 +53,6 @@ export default function PostForm({
         );
         
         if (linkCreated) {
-          setIsLinkSuccess(true);
           setIsExpanded(false);
           onLinkSuccess();
         } else {

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useExpandableGrid } from './expandable-grid';
 import PostForm from './post-form';
 import CopyCode from './copy-code';
 import styles from './expandable-grid.module.css';
