@@ -1,43 +1,41 @@
-.container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
+.codeContainer {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 8px;
 }
 
 .code {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-family: monospace;
-  background: none;
-  border: none;
-  cursor: pointer;
-  position: relative;
+    font-family: monospace;
+    transition: opacity 0.2s ease;
 }
 
-/* Create a pseudo-element for the actual text content that can fade */
-.code span {
-  display: block;
-  transition: opacity 150ms;
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.599);
+    opacity: 0;
+    transition: opacity 150ms ease;
+    border-radius: 8px;
 }
 
-.code:hover span {
-  opacity: 0.05;
+.overlay span {
+    color: #000;
+    font-weight: 500;
 }
 
-.code::after {
-  content: 'copy';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: 0.875rem;
-  color: #1b1b1b;
-  opacity: 0;
-  transition: opacity 150ms;
+/* Hover effects */
+.codeContainer:hover .code {
+    opacity: 0.2;
 }
 
-.code:hover::after {
-  opacity: 1;
-}
+.codeContainer:hover .overlay {
+    opacity: 1;
+} 

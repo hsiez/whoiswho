@@ -15,4 +15,4 @@ export async function checkPostX(postUrl: string, code: string): Promise<boolean
       console.error("Error calling X verification API:", error);
       return false;
     }
-  }
+}

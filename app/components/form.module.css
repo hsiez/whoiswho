@@ -1,0 +1,123 @@
+.form{
+    display: grid;
+    grid-template-columns: .25fr auto .25fr;
+    grid-template-rows: .25fr auto .25fr;
+    height: 312px;
+    width: 312px;
+    transition: all 150ms ease-out;
+}
+
+.gridLineVertical {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    box-shadow: 1px 0 0 0 var(--light-grey);
+}
+
+.formTitle {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.buttonsContainer{
+    grid-column: 2;
+    grid-row: 3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 8px;
+    height: 100%;
+    width: 100%;
+}
+
+.button {
+    background-color: var(--black);
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.button.cancel {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.inputs {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 8px;
+}
+
+/* Add background to side columns to make grid lines visible */
+.form::before,
+.form::after {
+    content: '';
+    grid-column: 1 / 2;
+}
+
+.form::after {
+    grid-column: 3 / 4;
+}
+
+.formWrapper {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 150ms ease-out;
+}
+
+.formWrapper.expanded {
+    height: 312px;
+    opacity: 1;
+}
+
+.formWrapper.collapsed {
+    height: 48px;
+    width: 312px;
+}
+
+.loading {
+    grid-column: 2;
+    grid-row: 2;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Spinner styles */
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #000000;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    animation: rotation 150ms linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

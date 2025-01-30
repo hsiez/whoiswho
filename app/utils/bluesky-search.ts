@@ -15,4 +15,4 @@ export async function checkPostBluesky(postUrl: string, code: string): Promise<b
       console.error("Error calling Bluesky verification API:", error);
       return false;
     }
-  }
+}

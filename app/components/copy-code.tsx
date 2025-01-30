@@ -1,45 +1,39 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './copy-code.module.css';
-import { useExpandableGrid } from './expandable-grid';
 
 interface CopyCodeProps {
-  setVerificationCode: (code: string) => void;
-  verificationCode: string;
+    code?: string;
+    setIsCopied: (isCopied: boolean) => void;
+    isCopied: boolean;
 }
 
-export default function CopyCode({ 
-  setVerificationCode, 
-  verificationCode,
-}: CopyCodeProps) {
-  const [copied, setCopied] = useState(false);
-  const { isExpanded } = useExpandableGrid();
+export default function CopyCode({ code = '550e8400-e29b-41d4-a716-446655440000', setIsCopied, isCopied }: CopyCodeProps) {
+    const [copyMessage, setCopyMessage] = useState(false);
 
-  useEffect(() => {
-    setVerificationCode(crypto.randomUUID());
-  }, []);
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(code);
+            setIsCopied(true);
+            setCopyMessage(true);
+            setTimeout(() => setCopyMessage(false), 2000);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(verificationCode);
-      setCopied(true);
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-    }
-  };
-
-  if (isExpanded) return null;
-
-  return (
-    <div className={styles.container}>
-      <button 
-        onClick={copyToClipboard}
-        className={styles.code}
-        data-copied={copied ? '' : undefined}
-      >
-        <span>{verificationCode}</span>
-      </button>
-    </div>
-  );
+    return (
+        <div onClick={handleCopy}>
+            { !isCopied ? 
+            <div className={styles.codeContainer}>
+                <code className={styles.code}>{code}</code>
+                <div className={styles.overlay}>
+                    <span>{copyMessage ? 'Copied!' : 'Copy'}</span>
+                </div>
+            </div>
+            :
+            null
+            }
+        </div>
+    );
 }

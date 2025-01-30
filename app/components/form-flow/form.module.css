@@ -1,0 +1,20 @@
+.topContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    box-shadow: 0 0 0 1px rgb(0, 0, 0);
+    border-radius: 8px;
+}
+
+.codeTitle{
+    margin-bottom: 16px;
+    transition: opacity 150ms ease-out;
+}
+
+.codeTitle.hidden{
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+}

@@ -45,8 +45,8 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const username = searchParams.get('username');
 
+    const username = searchParams.get('username');
     if (!username) {
       return NextResponse.json(
         { success: false, error: 'Username parameter is required' },
@@ -54,26 +54,35 @@ export async function GET(request: Request) {
       );
     }
 
-    // Try finding by x-id first
-    const { data: xData } = await supabase
-      .from('links')
-      .select('bs-id')
-      .eq('x-id', username)
-      .single<Pick<LinkRecord, 'bs-id'>>();
-
-    if (xData) {
-      return NextResponse.json({ success: true, linkedId: xData['bs-id'] });
+    const platform = searchParams.get('platform');
+    if (!platform) {
+      return NextResponse.json(
+        { success: false, error: 'Platform parameter is required' },
+        { status: 400 }
+      );
     }
 
-    // If not found, try by bs-id
-    const { data: bsData } = await supabase
-      .from('links')
-      .select('x-id')
-      .eq('bs-id', username)
-      .single<Pick<LinkRecord, 'x-id'>>();
+    if (platform === 'x') {
+      const { data: result } = await supabase
+        .from('links')
+        .select('bs-id')
+        .eq('x-id', username)
+        .single<Pick<LinkRecord, 'bs-id'>>();
 
-    if (bsData) {
-      return NextResponse.json({ success: true, linkedId: bsData['x-id'] });
+      if (result) {
+        return NextResponse.json({ success: true, linkedId: result['bs-id'] });
+      }
+    
+    } else if (platform === 'bs') {
+      const { data: result } = await supabase
+        .from('links')
+        .select('x-id')
+        .eq('bs-id', username)
+        .single<Pick<LinkRecord, 'x-id'>>();
+
+      if (result) {
+        return NextResponse.json({ success: true, linkedId: result['x-id'] });
+      }
     }
 
     return NextResponse.json(

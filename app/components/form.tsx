@@ -1,0 +1,146 @@
+import { useState } from 'react';
+import styles from './form.module.css';
+import InputBox from './input-box';
+import { checkPostBluesky } from '../utils/bluesky-search';
+import { checkPostX } from '../utils/x-search';
+
+export default function Form({isCopied, code, setIsCopied}: {isCopied: boolean, code: string, setIsCopied: (isCopied: boolean) => void}) {
+    const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [blueskyUrl, setBlueskyUrl] = useState('');
+    const [twitterUrl, setTwitterUrl] = useState('');
+    const [blueskyUrlError, setBlueskyUrlError] = useState('');
+    const [twitterUrlError, setTwitterUrlError] = useState('');
+
+    const isValidUrl = (url: string): boolean => {
+        try {
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    };
+
+    const isCorrectPlatform = (url: string, platform: 'bluesky' | 'x'): boolean => {
+        const domain = new URL(url).hostname;
+        return platform === 'bluesky' ? 
+            domain.includes('bsky.app') : 
+            domain.includes('twitter.com') || domain.includes('x.com');
+    };
+
+    const handleSubmit = async () => {
+        // Reset errors
+        setBlueskyUrlError('');
+        setTwitterUrlError('');
+        let hasError = false;
+
+        // Validate Bluesky URL
+        if (!isValidUrl(blueskyUrl)) {
+            setBlueskyUrlError('Please enter a valid URL');
+            hasError = true;
+        } else if (!isCorrectPlatform(blueskyUrl, 'bluesky')) {
+            setBlueskyUrlError('Please enter a Bluesky URL');
+            hasError = true;
+        }
+
+        // Validate X URL
+        if (!isValidUrl(twitterUrl)) {
+            setTwitterUrlError('Please enter a valid URL');
+            hasError = true;
+        } else if (!isCorrectPlatform(twitterUrl, 'x')) {
+            setTwitterUrlError('Please enter an X URL');
+            hasError = true;
+        }
+
+        if (hasError) return;
+
+        // Set loading state
+        setLoading(true);
+
+        try {
+            // Check for code in posts
+            const [blueskyVerified, xVerified] = await Promise.all([
+                checkPostBluesky(blueskyUrl, code),
+                checkPostX(twitterUrl, code)
+            ]);
+            
+            if (!blueskyVerified) {
+                setBlueskyUrlError('Code not found in post');
+                hasError = true;
+            }
+            if (!xVerified) {
+                setTwitterUrlError('Code not found in post');
+                hasError = true;
+            }
+
+            if (!hasError) {
+                setSubmitted(true);
+            }
+        } catch (error) {
+            console.error('Error verifying posts:', error);
+            setBlueskyUrlError('Error verifying post');
+            setTwitterUrlError('Error verifying post');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleCancel = () => {
+        setSubmitted(false);
+        setIsCopied(false);
+        setBlueskyUrl('');
+        setTwitterUrl('');
+        setBlueskyUrlError('');
+        setTwitterUrlError('');
+    }
+
+    return (
+        <div style={{height: 'fit-content', width: 'fit-content', overflow: 'hidden'}}>
+            {!isCopied ? 
+                <div style={{height: '0px', width: '0px', overflow: 'hidden'}}></div>
+            :
+                <div className={`${styles.formWrapper} ${isCopied ? styles.expanded : ''} ${submitted ? styles.collapsed : ''}`}>
+                    {submitted ? 
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%'}}>
+                            <p>Accounts linked ✅</p>
+                        </div>
+                    : 
+                        <div className={styles.form}>
+                            { !loading ? 
+                                <>
+                                    <div className={styles.formTitle}>
+                                        <p>Provide links to posts</p>
+                                    </div>
+                                <div className={styles.inputs}>
+                                    <InputBox input={blueskyUrl} setInput={setBlueskyUrl} error={blueskyUrlError} platform='bluesky'/>
+                                    <InputBox input={twitterUrl} setInput={setTwitterUrl} error={twitterUrlError} platform='x'/>
+                                </div>
+                                <div className={styles.buttonsContainer}>
+                                    <button 
+                                        className={styles.button + ' ' + styles.cancel} 
+                                        onClick={handleCancel}
+                                        disabled={loading}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button 
+                                        className={styles.button} 
+                                        onClick={handleSubmit}
+                                        disabled={loading}
+                                    >
+                                        Submit
+                                    </button>
+                                    </div>
+                                </>
+                            :
+                                <div className={styles.loading}>
+                                    <span className={styles.spinner}></span>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    );
+}
