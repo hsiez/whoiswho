@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './copy-code.module.css';
 
 interface CopyCodeProps {
@@ -10,6 +10,7 @@ interface CopyCodeProps {
 
 export default function CopyCode({ code = '550e8400-e29b-41d4-a716-446655440000', setIsCopied, isCopied }: CopyCodeProps) {
     const [copyMessage, setCopyMessage] = useState(false);
+    const [poem, setPoem] = useState('');
 
     const handleCopy = async () => {
         try {
@@ -22,11 +23,22 @@ export default function CopyCode({ code = '550e8400-e29b-41d4-a716-446655440000'
         }
     };
 
+    useEffect(() => {
+        const fetchPoem = async () => {
+            const response = await fetch(
+                '/api/poem'
+            );
+            const data = await response.json();
+            setPoem(data.poem);
+        };
+        fetchPoem();
+    }, []);
+
     return (
         <div onClick={handleCopy}>
             { !isCopied ? 
             <div className={styles.codeContainer}>
-                <code className={styles.code}>{code}</code>
+                <p className={styles.code}>{poem}</p>
                 <div className={styles.overlay}>
                     <span>{copyMessage ? 'Copied!' : 'Copy'}</span>
                 </div>

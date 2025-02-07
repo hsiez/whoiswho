@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@atproto/api": "^0.13.21",
+    "@google/generative-ai": "^0.21.0",
     "@heroicons/react": "^2.2.0",
     "@supabase/supabase-js": "^2.47.10",
     "@types/puppeteer": "^7.0.4",

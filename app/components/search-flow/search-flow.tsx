@@ -138,6 +138,10 @@ export default function SearchFlow() {
           </div>
         </div>
 
+        <div className={styles.or}>
+          <p>or</p>
+        </div>
+
         <div className={styles.inputWrapper}>
           <form onSubmit={handleXSearch} className={styles.searchForm}>
             <div className={styles.inputContainer}>

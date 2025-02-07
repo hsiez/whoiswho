@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import styles from './input-box.module.css';
+import Image from 'next/image';
 
 interface InputBoxProps {
   input: string;
@@ -15,13 +16,22 @@ const InputBox = ({ input, setInput, error, platform }: InputBoxProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.inputBackdrop} ${error ? styles.hasError : ''}`}>
+      <div className={styles.inputContainer}>
+        <div className={`${styles.iconContainer} ${platform === 'bluesky' ? styles.blueskyIconContainer : styles.xIconContainer}`}>
+          <Image 
+            src={platform === 'bluesky' ? "/bluesky.svg" : "/x.svg"} 
+            alt={platform === 'bluesky' ? "Bluesky" : "X"} 
+            width={16} 
+            height={16} 
+            className={`${styles.inputIcon} ${platform === 'bluesky' ? styles.blueskyInputIcon : styles.xInputIcon}`}
+          />
+        </div>
         <input
           type="url"
           value={input}
           onChange={handleChange}
-          placeholder={platform === 'bluesky' ? 'https://bsky.app/...' : 'https://x.com/...'}
-          className={`${styles.input} ${error ? styles.inputError : ''}`}
+          placeholder={platform === 'bluesky' ? 'https://bsky/post/url' : 'https://x/post/url'}
+          className={`${styles.input} ${platform === 'bluesky' ? styles.blueskyInput : styles.xInput}`}
         />
       </div>
       <div className={styles.errorMessage}>{error || '\u00A0'}</div>

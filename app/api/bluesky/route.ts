@@ -25,10 +25,14 @@ export async function GET(request: Request) {
       password: process.env.BLUESKY_PASSWORD!
     });
 
-    // Extract post ID from URL
-    const postId = postUrl.split('/post/').pop();
+    // Extract post ID and repo from URL
+    const urlParts = postUrl.split('/');
+    const postId = urlParts.pop(); // Gets the last segment
+    urlParts.pop(); // Remove the 'post' segment
+    const repo = urlParts.pop(); // Gets the username segment
+    console.log("postId", postId, "repo", repo);
 
-    if (!postId) {
+    if (!postId || !repo) {
       return NextResponse.json(
         { success: false, error: 'Invalid Bluesky post URL' },
         { status: 400 }
@@ -36,11 +40,20 @@ export async function GET(request: Request) {
     }
 
     // Get the post using the agent
-    const post = await agent.getPost({ rkey: postId, repo: process.env.BLUESKY_USERNAME! });
-    const postText = post.value.text;
-    const containsCode = postText.includes(code);
+    console.log("postId", postId, "repo", repo);
+    try {
+      const post = await agent.getPost({ rkey: postId, repo: repo });
+      const postText = post.value.text;
+      const containsCode = postText.includes(code);
 
-    return NextResponse.json({ success: true, verified: containsCode });
+      return NextResponse.json({ success: true, verified: containsCode });
+    } catch (error) {
+      console.error("Error getting post:", error);
+      return NextResponse.json(
+        { success: false, error: 'Error getting post' },
+        { status: 500 }
+      );
+    }
 
   } catch (error: unknown) {
     return NextResponse.json(

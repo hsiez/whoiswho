@@ -39,7 +39,6 @@
     color: #fff;
     border: none;
     padding: 4px 8px;
-    border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -56,11 +55,11 @@
     grid-row: 2;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     height: 100%;
     width: 100%;
-    gap: 8px;
+    gap: 16px;
 }
 
 /* Add background to side columns to make grid lines visible */

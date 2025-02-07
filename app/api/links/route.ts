@@ -20,18 +20,14 @@ interface LinkRecord {
 
 export async function POST(request: Request) {
   try {
-    const { 'x-id': xId, 'bs-id': bsId } = await request.json();
+    const { 'bs-id': bsId, 'x-id': xId } = await request.json();
 
-    const { error } = await supabase
-      .from('links')
-      .insert([
-        {
-          'x-id': xId,
-          'bs-id': bsId,
-        }
-      ]);
+    const { error } = await supabase.rpc('create_mapping', { 
+      username_a: bsId, 
+      username_b: xId
+    });
 
-    if (error) throw error;
+    if (error) console.error(error);
 
     return NextResponse.json({ success: true });
   } catch (error: unknown) {
@@ -62,27 +58,12 @@ export async function GET(request: Request) {
       );
     }
 
-    if (platform === 'x') {
-      const { data: result } = await supabase
-        .from('links')
-        .select('bs-id')
-        .eq('x-id', username)
-        .single<Pick<LinkRecord, 'bs-id'>>();
-
-      if (result) {
-        return NextResponse.json({ success: true, linkedId: result['bs-id'] });
-      }
-    
-    } else if (platform === 'bs') {
-      const { data: result } = await supabase
-        .from('links')
-        .select('x-id')
-        .eq('bs-id', username)
-        .single<Pick<LinkRecord, 'x-id'>>();
-
-      if (result) {
-        return NextResponse.json({ success: true, linkedId: result['x-id'] });
-      }
+    const { data: result } = await supabase.rpc('search_association', { 
+      search_username: username, 
+      search_platform: platform
+    });
+    if (result) {
+      return NextResponse.json({ success: true, linkedId: result });
     }
 
     return NextResponse.json(

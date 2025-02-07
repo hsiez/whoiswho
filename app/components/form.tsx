@@ -3,6 +3,23 @@ import styles from './form.module.css';
 import InputBox from './input-box';
 import { checkPostBluesky } from '../utils/bluesky-search';
 import { checkPostX } from '../utils/x-search';
+import { createLink } from '../utils/database';
+
+
+function getBlueskyId(url: string): string {
+    const urlObj = new URL(url);
+    const pathParts = urlObj.pathname.split('/');
+    // The profile part will be at index 2 after splitting '/profile/username/post/id'
+    return pathParts[2];
+}
+
+function getXId(url: string): string {
+    const urlObj = new URL(url);
+    const pathParts = urlObj.pathname.split('/');
+    // The username is at index 1 after splitting '/username/status/id'
+    return pathParts[1];
+}
+
 
 export default function Form({isCopied, code, setIsCopied}: {isCopied: boolean, code: string, setIsCopied: (isCopied: boolean) => void}) {
     const [submitted, setSubmitted] = useState(false);
@@ -74,6 +91,13 @@ export default function Form({isCopied, code, setIsCopied}: {isCopied: boolean, 
             }
 
             if (!hasError) {
+                try {
+                    const bsId = getBlueskyId(blueskyUrl);
+                    const xId = getXId(twitterUrl);
+                    await createLink(bsId, xId);
+                } catch (error) {
+                    console.error('Error creating link:', error);
+                }
                 setSubmitted(true);
             }
         } catch (error) {

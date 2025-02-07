@@ -1,48 +1,103 @@
 .container {
   width: 100%;
-  height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
-.inputBackdrop {
-    height: fit-content;
-    width: 100%;
-    transition: background-color 150ms ease;
-    padding: 4px;
-    border-radius: 8px;
-    background-color: #dddddd6b;
+.inputContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
 }
 
-.hasError {
-  background-color: var(--soft-red);
+/* Platform-specific box shadows */
+.inputContainer:has(.blueskyInput) {
+  box-shadow: 0 0 0 1px rgb(0, 133, 255);
+}
+
+.inputContainer:has(.xInput) {
+  box-shadow: 0 0 0 1px #000;
+}
+
+/* Focus states */
+.inputContainer:has(.blueskyInput):focus-within {
+  box-shadow: 0 0 0 2px rgb(0, 133, 255);
+}
+
+.inputContainer:has(.xInput):focus-within {
+  box-shadow: 0 0 0 2px #000;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  padding: 12px;
+  transition: all 150ms ease-in-out;
+  background-color: #fff;
+}
+
+.blueskyIconContainer {
+  background-color: #fff;
+}
+
+.xIconContainer {
+  background-color: #fff;
+}
+
+.inputIcon {
+  width: 16px;
+  height: 16px;
 }
 
 .input {
-  min-width: 100%;
-  padding: 8px 8px;
+  flex: 1;
+  padding: 12px;
+  padding-left: 4px;
+  padding-right: 4px;
   border: none;
-  border-radius: 4px;
   font-size: 16px;
-  transition: box-shadow 0.2s ease;
-  box-shadow: 0 0 0 1px #ddd;
-}
-
-.inputError {
-  box-shadow: 0 0 0 1px var(--hard-red);
+  transition: all 200ms ease-in-out;
+  color: #000;
+  background-color: #fff;
+  transition: all 150ms ease-in-out;
 }
 
 .input:focus {
   outline: none;
-  box-shadow: 0 0 0 1px #0070f3;
 }
 
 .errorMessage {
-  color: var(--light-grey);
+  color: #6b7280;
   font-size: 12px;
-  font-weight: 400;
-  min-height: 16px; /* Ensures consistent height */
-  line-height: 1;
   padding-left: 12px;
+  min-height: fit-content;
+  transition: all 200ms ease-in-out;
+}
+
+.blueskyInputIcon {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(85%) saturate(2784%) hue-rotate(199deg) brightness(102%) contrast(107%);
+}
+
+.xInputIcon {
+  filter: brightness(0);
+}
+
+/* Focus states */
+.inputContainer:focus-within .blueskyIconContainer {
+  background-color: rgb(0, 133, 255);
+}
+
+.inputContainer:focus-within .xIconContainer {
+  background-color: #000;
+}
+
+.inputContainer:focus-within .blueskyInputIcon,
+.inputContainer:focus-within .xInputIcon {
+  filter: brightness(0) invert(1);
 }

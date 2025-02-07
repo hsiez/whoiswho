@@ -1,16 +1,16 @@
 /**
  * Links two social media accounts together
  */
-export async function createLink(xId: string, bsId: string): Promise<boolean> {
-  /* try {
+export async function createLink(bsId: string, xId: string): Promise<boolean> {
+  try {
     const response = await fetch('/api/links', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        'x-id': xId,
         'bs-id': bsId,
+        'x-id': xId,
       }),
     });
 
@@ -20,8 +20,6 @@ export async function createLink(xId: string, bsId: string): Promise<boolean> {
     console.error('Error creating link:', error);
     return false;
   }
-  */
-  return true;
 }
 
 /**
