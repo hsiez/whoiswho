@@ -1,17 +1,42 @@
+// app/(public)/link-accounts/page.tsx
 import LinkAccountsFlow from "../../components/form-flow/from-flow";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const metadata = {
   title: 'Link Accounts',
   description: 'Link your bluesky and x accounts so people can find you'
 }
 
-export default async function LinkAccountsPage() {
-  // Use absolute URL for the fetch
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/poem`);
-  const data = await response.json();
-  const initialPoem = data.poem;
+// Initialize Gemini outside the component
+const apiKey = process.env.GEMINI_API_KEY;
+if (!apiKey) throw new Error('GEMINI_API_KEY is not defined');
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ 
+  model: "gemini-2.0-flash-lite-preview-02-05",
+});
 
-  return (
-    <LinkAccountsFlow initialPoem={initialPoem} />
-  );
+export default async function LinkAccountsPage() {
+  let initialPoem: string = '';
+  
+  try {
+    const prompt = `Write a haiku (3 lines with 5-7-5 syllable pattern) about one of the following topics at random:
+      - nature
+      - friendship
+      - love
+      - creativity
+      - dogs
+      - love of life
+      Make it thoughtful and poetic.
+      Only respond with the haiku text, no additional explanation or formatting.`;
+    
+    const result = await model.generateContent(prompt);
+    const poemText = result.response.text();
+    initialPoem = poemText;
+    
+  } catch (error) {
+    console.error('Failed to generate poem:', error);
+    initialPoem = "Waves kiss the shore's embrace,\nSilent moon watches from high,\nPeace in night's soft grace."; // Fallback poem
+  }
+
+  return <LinkAccountsFlow initialPoem={initialPoem} />;
 }
