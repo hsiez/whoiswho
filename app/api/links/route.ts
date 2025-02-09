@@ -12,12 +12,6 @@ const supabase = createClient(
   }
 );
 
-interface LinkRecord {
-  'x-id': string;
-  'bs-id': string;
-  created_at: string;
-}
-
 export async function POST(request: Request) {
   try {
     const { 'bs-id': bsId, 'x-id': xId } = await request.json();

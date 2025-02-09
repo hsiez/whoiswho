@@ -9,7 +9,7 @@ interface CopyCodeProps {
     poem: string;
 }
 
-export default function CopyCode({ code = '550e8400-e29b-41d4-a716-446655440000', setIsCopied, isCopied, poem }: CopyCodeProps) {
+export default function CopyCode({ setIsCopied, isCopied, poem }: CopyCodeProps) {
     const [copyMessage, setCopyMessage] = useState(false);
 
     const handleCopy = async () => {

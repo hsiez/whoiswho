@@ -1,4 +1,3 @@
-import styles from "./page.module.css";
 import LinkAccountsFlow from "../../components/form-flow/from-flow";
 
 export const metadata = {
