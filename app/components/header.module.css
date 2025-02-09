@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+}
+
+.siteName {
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+}
+
+.navItem {
+  padding: 3px;
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+  transition: color 150ms ease-out;
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.navItem:hover {
+  color: #666;
+}
+
+.active {
+  box-shadow: 0 1.5px 0 0 var(--blue);
+}

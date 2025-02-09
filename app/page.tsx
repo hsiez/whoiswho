@@ -1,12 +1,6 @@
-import styles from "./page.module.css";
-import LinkAccountsFlow from "./components/form-flow/from-flow";
+// app/page.tsx
+import { redirect } from 'next/navigation'
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <LinkAccountsFlow />
-      </main>
-    </div>
-  );
+export default function RootPage() {
+  redirect('/link-accounts')
 }

@@ -21,7 +21,7 @@ function getXId(url: string): string {
 }
 
 
-export default function Form({isCopied, code, setIsCopied}: {isCopied: boolean, code: string, setIsCopied: (isCopied: boolean) => void}) {
+export default function Form({isCopied, setIsCopied, poem}: {isCopied: boolean, setIsCopied: (isCopied: boolean) => void, poem: string}) {
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [blueskyUrl, setBlueskyUrl] = useState('');
@@ -77,8 +77,8 @@ export default function Form({isCopied, code, setIsCopied}: {isCopied: boolean, 
         try {
             // Check for code in posts
             const [blueskyVerified, xVerified] = await Promise.all([
-                checkPostBluesky(blueskyUrl, code),
-                checkPostX(twitterUrl, code)
+                checkPostBluesky(blueskyUrl, poem),
+                checkPostX(twitterUrl, poem)
             ]);
             
             if (!blueskyVerified) {
