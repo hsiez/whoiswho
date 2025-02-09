@@ -6,8 +6,8 @@ export const metadata = {
 }
 
 export default async function LinkAccountsPage() {
-  // Fetch poem server-side
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/poem`);
+  // Use absolute URL for the fetch
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/poem`);
   const data = await response.json();
   const initialPoem = data.poem;
 
