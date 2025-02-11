@@ -116,8 +116,8 @@ export default function SearchFlow() {
               <Image 
                 src="/bluesky.svg" 
                 alt="Bluesky" 
-                width={16} 
-                height={16} 
+                width={20} 
+                height={20} 
                 className={`${styles.inputIcon} ${isLoading ? styles.loading : ''}`} 
               />
               <input
@@ -148,8 +148,8 @@ export default function SearchFlow() {
               <Image 
                 src="/x.svg" 
                 alt="X" 
-                width={16} 
-                height={16} 
+                width={20} 
+                height={20} 
                 className={`${styles.inputIcon} ${isLoading ? styles.loading : ''}`} 
               />
               <input

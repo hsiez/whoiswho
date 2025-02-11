@@ -50,8 +50,8 @@
 }
 
 .inputIcon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .input {
@@ -60,7 +60,7 @@
   padding-left: 4px;
   padding-right: 4px;
   border: none;
-  font-size: 16px;
+  font-size: 20px;
   color: #000;
   background-color: #fff;
   transition: all 150ms ease-in-out;
@@ -72,7 +72,7 @@
 
 .errorMessage {
   color: #6b7280;
-  font-size: 12px;
+  font-size: 16px;
   padding-left: 12px;
   min-height: fit-content;
   transition: all 200ms ease-in-out;

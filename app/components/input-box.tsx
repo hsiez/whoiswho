@@ -21,8 +21,8 @@ const InputBox = ({ input, setInput, error, platform }: InputBoxProps) => {
           <Image 
             src={platform === 'bluesky' ? "/bluesky.svg" : "/x.svg"} 
             alt={platform === 'bluesky' ? "Bluesky" : "X"} 
-            width={16} 
-            height={16} 
+            width={20} 
+            height={20} 
             className={`${styles.inputIcon} ${platform === 'bluesky' ? styles.blueskyInputIcon : styles.xInputIcon}`}
           />
         </div>

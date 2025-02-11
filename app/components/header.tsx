@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.siteName}>
-        <img src="/logo.svg" alt="WhoisWho" width="16" height="24" />
+        <img src="/logo.svg" alt="WhoisWho" width="24" height="32" />
         <Link href="/"> WhoisWho</Link>
       </div>
       <nav className={styles.nav}>

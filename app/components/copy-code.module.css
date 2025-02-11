@@ -8,8 +8,9 @@
 
 .code {
     font-family: monospace;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, filter 0.2s ease;
     white-space: pre-line;
+    font-size: 20px;
 }
 
 .overlay {
@@ -28,13 +29,17 @@
 }
 
 .overlay span {
-    color: #000;
+    color: #ffffff;
     font-weight: 500;
+    font-size: 20px;
+    background-color: #000000;
+    padding: 8px 16px;
 }
 
 /* Hover effects */
 .codeContainer:hover .code {
-    opacity: 0.2;
+    opacity: 0.8;
+    filter: blur(3px) contrast(0.8) saturate(4);
 }
 
 .codeContainer:hover .overlay {

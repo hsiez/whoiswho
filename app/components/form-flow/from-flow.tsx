@@ -12,7 +12,8 @@ export default function LinkAccountsFlow({ initialPoem }: { initialPoem: string 
         <>  
             {!isCopied ? 
                 <div className={`${formStyles.codeTitle} ${isCopied ? formStyles.hidden : ''}`}>
-                    <h4>Copy and post this poem to your Bluesky and X accounts</h4>
+                    <h2>Copy and post this poem from your Bluesky and X account</h2>
+                    <p>Posting this poem proves you have access to the accounts. You can delete the post after the linking process is complete.</p>
                 </div>
             :
                 null

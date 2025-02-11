@@ -1,8 +1,8 @@
 .form{
     display: grid;
-    grid-template-columns: .25fr auto .25fr;
-    grid-template-rows: .25fr auto .25fr;
-    height: 312px;
+    grid-template-columns: 2px auto 2px;
+    grid-template-rows: 16px .20fr 1fr .20fr 16px;
+    height: 400px;
     width: 312px;
     transition: all 150ms ease-out;
 }
@@ -15,7 +15,7 @@
 
 .formTitle {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
@@ -25,7 +25,7 @@
 
 .buttonsContainer{
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 4;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
@@ -38,11 +38,12 @@
     background-color: var(--black);
     color: #fff;
     border: none;
-    padding: 4px 8px;
+    padding: 8px 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 6px;
+    font-size: 20px;
 }
 
 .button.cancel {
@@ -52,7 +53,7 @@
 
 .inputs {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,8 +82,9 @@
 }
 
 .formWrapper.expanded {
-    height: 312px;
+    height: 400px;
     opacity: 1;
+    width: 100%;
 }
 
 .formWrapper.collapsed {

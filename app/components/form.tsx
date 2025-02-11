@@ -133,7 +133,7 @@ export default function Form({isCopied, setIsCopied, poem}: {isCopied: boolean, 
                             { !loading ? 
                                 <>
                                     <div className={styles.formTitle}>
-                                        <p>Provide links to posts</p>
+                                        <h2>Provide links to posts</h2>
                                     </div>
                                 <div className={styles.inputs}>
                                     <InputBox input={blueskyUrl} setInput={setBlueskyUrl} error={blueskyUrlError} platform='bluesky'/>
