@@ -12,7 +12,8 @@ export default function LinkAccountsFlow({ initialPoem }: { initialPoem: string 
         <>  
             {!isCopied ? 
                 <div className={`${formStyles.codeTitle} ${isCopied ? formStyles.hidden : ''}`}>
-                    <h2>Copy and post this poem from your Bluesky and X account</h2>
+                    <h1 style={{textAlign: 'center'}}> Link your Bluesky and X account</h1>
+                    <p style={{fontSize: "16px", marginTop: "8px", textAlign: 'center'}}>Post this poem from the profiles you want to map together in the whoiswho registry.</p>
                 </div>
             :
                 null

@@ -15,10 +15,10 @@ export async function GET(request: Request) {
   }
 
   let browser;
+  const browserWSEndpoint =
+    `wss://production-sfo.browserless.io/chromium?token=${process.env.BROWSERLESS_API_KEY}`;
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-    });
+    browser = await puppeteer.connect({ browserWSEndpoint });
 
     const page = await browser.newPage();
     
