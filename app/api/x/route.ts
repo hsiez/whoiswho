@@ -66,7 +66,7 @@ export async function GET(request: Request) {
 
     console.log("tweetText", tweetText);
 
-    const containsCode = tweetText.includes(code);
+    const containsCode = code.includes(tweetText);
     return NextResponse.json({ success: true, verified: containsCode });
 
   } catch (error: unknown) {

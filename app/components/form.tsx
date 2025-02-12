@@ -126,7 +126,7 @@ export default function Form({isCopied, setIsCopied, poem}: {isCopied: boolean, 
                 <div className={`${styles.formWrapper} ${isCopied ? styles.expanded : ''} ${submitted ? styles.collapsed : ''}`}>
                     {submitted ? 
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%'}}>
-                            <p>Accounts linked ✅</p>
+                            <p style={{fontSize: '20px', fontWeight: '500'}}>Accounts linked ✅</p>
                         </div>
                     : 
                         <div className={styles.form}>
@@ -158,6 +158,7 @@ export default function Form({isCopied, setIsCopied, poem}: {isCopied: boolean, 
                                 </>
                             :
                                 <div className={styles.loading}>
+                                    <p>Gimme a sec, I'm not using the X API</p>
                                     <span className={styles.spinner}></span>
                                 </div>
                             }

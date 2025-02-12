@@ -44,7 +44,7 @@ export async function GET(request: Request) {
     try {
       const post = await agent.getPost({ rkey: postId, repo: repo });
       const postText = post.value.text;
-      const containsCode = postText.includes(code);
+      const containsCode = code.includes(postText);
 
       return NextResponse.json({ success: true, verified: containsCode });
     } catch (error) {
