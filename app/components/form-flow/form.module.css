@@ -1,8 +1,6 @@
 .topContainer{
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
     height: fit-content;
     width: fit-content;
     width: 50%;

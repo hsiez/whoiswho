@@ -21,7 +21,7 @@ function getXId(url: string): string {
 }
 
 
-export default function Form({submitted, setSubmitted, poem}: {submitted: boolean, setSubmitted: (submitted: boolean) => void, poem: string}) {
+export default function Form({setSubmitted, poem}: {setSubmitted: (submitted: boolean) => void, poem: string}) {
     const [loading, setLoading] = useState(false);
     const [blueskyUrl, setBlueskyUrl] = useState('');
     const [twitterUrl, setTwitterUrl] = useState('');
@@ -129,7 +129,7 @@ export default function Form({submitted, setSubmitted, poem}: {submitted: boolea
                     </>
                 :
                     <div className={styles.loading}>
-                        <p>Gimme a sec, I'm not using the X API</p>
+                        <p>Gimme a sec, I&apos;m not using the X API</p>
                         <span className={styles.spinner}></span>
                     </div>
                 }

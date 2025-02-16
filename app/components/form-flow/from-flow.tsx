@@ -73,7 +73,7 @@ export default function LinkAccountsFlow({ initialPoem }: { initialPoem: string 
                             </button>
                         </h3>
                         <div className={`${formStyles.accordionContent} ${isFormExpanded ? formStyles.expanded : ''}`}>
-                            <Form submitted={submitted} setSubmitted={setSubmitted} poem={initialPoem} />
+                            <Form setSubmitted={setSubmitted} poem={initialPoem} />
                         </div>
                     </section>
                 </>

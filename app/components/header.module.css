@@ -1,8 +1,8 @@
 .header {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding-left: 8px;
   padding-top: 8px;
   gap: 16px;
