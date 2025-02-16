@@ -21,8 +21,7 @@ function getXId(url: string): string {
 }
 
 
-export default function Form({isCopied, setIsCopied, poem}: {isCopied: boolean, setIsCopied: (isCopied: boolean) => void, poem: string}) {
-    const [submitted, setSubmitted] = useState(false);
+export default function Form({submitted, setSubmitted, poem}: {submitted: boolean, setSubmitted: (submitted: boolean) => void, poem: string}) {
     const [loading, setLoading] = useState(false);
     const [blueskyUrl, setBlueskyUrl] = useState('');
     const [twitterUrl, setTwitterUrl] = useState('');
@@ -109,63 +108,32 @@ export default function Form({isCopied, setIsCopied, poem}: {isCopied: boolean, 
         }
     };
 
-    const handleCancel = () => {
-        setSubmitted(false);
-        setIsCopied(false);
-        setBlueskyUrl('');
-        setTwitterUrl('');
-        setBlueskyUrlError('');
-        setTwitterUrlError('');
-    }
-
     return (
-        <div style={{height: 'fit-content', width: 'fit-content', overflow: 'hidden'}}>
-            {!isCopied ? 
-                <div style={{height: '0px', width: '0px', overflow: 'hidden'}}></div>
-            :
-                <div className={`${styles.formWrapper} ${isCopied ? styles.expanded : ''} ${submitted ? styles.collapsed : ''}`}>
-                    {submitted ? 
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%'}}>
-                            <p style={{fontSize: '20px', fontWeight: '500'}}>Accounts linked ✅</p>
+        <div style={{flex: 1, height: '100%', width: '100%', overflow: 'hidden'}}>
+            <div className={styles.form}>
+                { !loading ? 
+                    <>
+                    <div className={styles.inputs}>
+                        <InputBox input={blueskyUrl} setInput={setBlueskyUrl} error={blueskyUrlError} platform='bluesky'/>
+                        <InputBox input={twitterUrl} setInput={setTwitterUrl} error={twitterUrlError} platform='x'/>
+                    </div>
+                    <div className={styles.buttonsContainer}>
+                        <button 
+                            className={styles.button} 
+                            onClick={handleSubmit}
+                            disabled={loading}
+                        >
+                            Submit
+                        </button>
                         </div>
-                    : 
-                        <div className={styles.form}>
-                            { !loading ? 
-                                <>
-                                    <div className={styles.formTitle}>
-                                        <h2>Provide links to posts</h2>
-                                    </div>
-                                <div className={styles.inputs}>
-                                    <InputBox input={blueskyUrl} setInput={setBlueskyUrl} error={blueskyUrlError} platform='bluesky'/>
-                                    <InputBox input={twitterUrl} setInput={setTwitterUrl} error={twitterUrlError} platform='x'/>
-                                </div>
-                                <div className={styles.buttonsContainer}>
-                                    <button 
-                                        className={styles.button + ' ' + styles.cancel} 
-                                        onClick={handleCancel}
-                                        disabled={loading}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button 
-                                        className={styles.button} 
-                                        onClick={handleSubmit}
-                                        disabled={loading}
-                                    >
-                                        Submit
-                                    </button>
-                                    </div>
-                                </>
-                            :
-                                <div className={styles.loading}>
-                                    <p>Gimme a sec, I'm not using the X API</p>
-                                    <span className={styles.spinner}></span>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-            }
+                    </>
+                :
+                    <div className={styles.loading}>
+                        <p>Gimme a sec, I'm not using the X API</p>
+                        <span className={styles.spinner}></span>
+                    </div>
+                }
+            </div>
         </div>
     );
 }

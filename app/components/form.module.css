@@ -1,35 +1,18 @@
 .form{
     display: grid;
-    grid-template-columns: 2px auto 2px;
-    grid-template-rows: 16px .20fr 1fr .20fr 16px;
-    height: 400px;
-    width: 312px;
+    grid-template-columns: .15fr auto .15fr;
+    grid-template-rows: 32px 2fr auto 32px;
+    height: 100%;
+    min-width: 100%;
     transition: all 150ms ease-out;
-}
-
-.gridLineVertical {
-    grid-column: 1;
-    grid-row: 1 / 4;
-    box-shadow: 1px 0 0 0 var(--light-grey);
-}
-
-.formTitle {
-    grid-column: 2;
-    grid-row: 2;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    font-size: 16px;
-    font-weight: 600;
 }
 
 .buttonsContainer{
     grid-column: 2;
-    grid-row: 4;
+    grid-row: 3;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 8px;
+    align-items: flex-end;
+    justify-content: flex-end;    
     height: 100%;
     width: 100%;
 }
@@ -46,14 +29,9 @@
     font-size: 20px;
 }
 
-.button.cancel {
-    background-color: var(--white);
-    color: var(--black);
-}
-
 .inputs {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,35 +39,7 @@
     height: 100%;
     width: 100%;
     gap: 16px;
-}
-
-/* Add background to side columns to make grid lines visible */
-.form::before,
-.form::after {
-    content: '';
-    grid-column: 1 / 2;
-}
-
-.form::after {
-    grid-column: 3 / 4;
-}
-
-.formWrapper {
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: all 150ms ease-out;
-}
-
-.formWrapper.expanded {
-    height: 400px;
-    opacity: 1;
-    width: 100%;
-}
-
-.formWrapper.collapsed {
-    height: 48px;
-    width: 312px;
+    margin-bottom: 16px;
 }
 
 .loading {

@@ -1,12 +1,20 @@
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 32px;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding-left: 8px;
+  padding-top: 8px;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    padding-left: 24px;
+    padding-top: 24px;
+  }
 }
 
 .siteName {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   color: black;
@@ -14,11 +22,16 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 .nav {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .navItem {
@@ -26,15 +39,17 @@
   text-decoration: none;
   color: black;
   text-transform: uppercase;
-  transition: color 150ms ease-out;
-  font-size: 1rem;
+  transition: all 150ms ease-out;
+  font-size: 0.8rem;
   font-weight: 550;
+
 }
 
 .navItem:hover {
-  color: #666;
+  letter-spacing: 0.05em;
 }
 
 .active {
-  box-shadow: 0 1.5px 0 0 var(--blue);
+  color: var(--blue);
+  font-weight: 650;
 }

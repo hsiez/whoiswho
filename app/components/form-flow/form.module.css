@@ -1,25 +1,72 @@
 .topContainer{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     height: fit-content;
     width: fit-content;
-    box-shadow: 0 0 0 1px #000000;
-    min-width: 400px;
-    min-height: 100px;
+    width: 50%;
+    position: relative;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+        width: 90%;
+    }
 }
 
-.codeTitle{
-    margin-bottom: 32px;
+.poemAccordion{
+    display: flex;
     flex-direction: column;
-    gap: 8px;
-    transition: opacity 150ms ease-out;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 0 0 1px var(--black);
+    width: 100%;
+}
+.poemContainer{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 150ms ease-in-out;
 }
 
-.codeTitle.hidden{
-    opacity: 0;
-    transition: opacity 150ms ease-out;
+.poemContainer.expanded {              
+    grid-template-rows: 1fr;
+
+}
+
+.accordionTitle{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 44px;
+}
+
+.accordionNumber{
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 1px 0 0 0 white;
+}
+
+.accordionButton{
+    width: 100%;
+    background-color: var(--black);
+    border: none;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordionContent{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 150ms ease-in-out;
+}
+
+.accordionContent.expanded {              
+    grid-template-rows: 1fr;
 }

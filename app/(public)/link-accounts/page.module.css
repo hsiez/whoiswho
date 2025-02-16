@@ -38,6 +38,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  left: 50%;
 }
 
 @media (max-width: 600px) {
