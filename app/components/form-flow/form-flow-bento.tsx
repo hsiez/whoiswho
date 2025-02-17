@@ -118,7 +118,7 @@ export default function LinkAccountsFlow({ initialPoem }: { initialPoem: string 
                 </h1>
 
                 <p>
-                    Prove your identity by posting a unique poem to each platform. Once you've done that, we'll map together your Bluesky and X accounts in the whoiswho registry.
+                    Prove your identity by posting a unique poem to each platform. Once you&apos;'ve done that, we&apos;'ll map together your Bluesky and X accounts in the whoiswho registry.
                 </p>
             </header>
 
