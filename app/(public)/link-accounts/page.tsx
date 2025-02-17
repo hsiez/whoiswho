@@ -1,5 +1,5 @@
 // app/(public)/link-accounts/page.tsx
-import LinkAccountsFlow from "../../components/form-flow/from-flow";
+import LinkAccountsFlow from "../../components/form-flow/form-flow-bento";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const metadata = {

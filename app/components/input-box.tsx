@@ -30,7 +30,7 @@ const InputBox = ({ input, setInput, error, platform }: InputBoxProps) => {
           type="url"
           value={input}
           onChange={handleChange}
-          placeholder={platform === 'bluesky' ? 'https://bsky/post/url' : 'https://x/post/url'}
+          placeholder={platform === 'bluesky' ? 'Post URL' : 'Post URL'}
           className={`${styles.input} ${platform === 'bluesky' ? styles.blueskyInput : styles.xInput}`}
         />
       </div>
