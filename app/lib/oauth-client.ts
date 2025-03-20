@@ -52,9 +52,9 @@ export async function getOAuthClient() {
     },
     // Load your private keys from environment variables.
     keyset: await Promise.all([
-      JoseKey.fromImportable(process.env.PRIVATE_KEY_1!),
-      JoseKey.fromImportable(process.env.PRIVATE_KEY_2!),
-      JoseKey.fromImportable(process.env.PRIVATE_KEY_3!),
+      JoseKey.fromImportable(process.env.PRIVATE_KEY_1!, 'kid1'),
+      JoseKey.fromImportable(process.env.PRIVATE_KEY_2!, 'kid2'),
+      JoseKey.fromImportable(process.env.PRIVATE_KEY_3!, 'kid3'),
     ]),
     stateStore,
     sessionStore,
