@@ -48,7 +48,7 @@ export async function getOAuthClient() {
       token_endpoint_auth_signing_alg: 'ES256',
       token_endpoint_auth_method: 'private_key_jwt',
       dpop_bound_access_tokens: true,
-      jwks_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/jwks.json`,
+      jwks_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/jwks.json`,
     },
     // Load your private keys from environment variables.
     keyset: await Promise.all([
