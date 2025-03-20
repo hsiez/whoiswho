@@ -1,6 +1,8 @@
+// app/api/login/route.ts
 import { NextResponse } from 'next/server'
 import { getOAuthClient } from '@/app/lib/oauth-client'
 import crypto from 'crypto'
+import { cookies } from 'next/headers'
 
 export async function GET(req: Request) {
   try {
@@ -9,13 +11,24 @@ export async function GET(req: Request) {
     const handle = searchParams.get('handle') || 'harl3y.bsky.social'
     const state = crypto.randomBytes(32).toString('hex')
 
-    const url = await client.authorize(handle, {
-      state,
-      // Only supported if OAuth server is openid-compliant
-      ui_locales: 'fr-CA fr en',
+    const cookieStore = await cookies()
+    cookieStore.set('oauth_state', state, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 5, // 5 minutes
+      path: '/',
     })
 
-    return NextResponse.redirect(url.toString())
+    const url = await client.authorize(handle, { state })
+
+    // Return redirect with state cookie set
+    return new NextResponse(null, {
+      status: 302,
+      headers: {
+        'Location': url.toString(),
+      },
+    })
   } catch (err) {
     console.error('Error handling login:', err)
     return new NextResponse(
