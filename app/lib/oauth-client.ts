@@ -30,11 +30,6 @@ const sessionStore = {
 // Simple in‑memory objects for demonstration; replace with a persistent store as needed.
 const memoryStateStore: Record<string, NodeSavedState> = {}
 const memorySessionStore: Record<string, NodeSavedSession> = {}
-
-// Optionally, implement a requestLock function if you expect concurrent accesses.
-const requestLock = async <T>(key: string, fn: () => T | Promise<T>): Promise<T> => {
-    return await fn();
-  }
   
 
 export async function getOAuthClient() {

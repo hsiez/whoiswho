@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getOAuthClient } from '@/app/lib/oauth-client'
 import { Agent } from '@atproto/api'
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
     try {
         const client = await getOAuthClient()
         const params = new URLSearchParams(req.url.split('?')[1])

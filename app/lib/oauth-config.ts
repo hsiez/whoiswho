@@ -1,4 +1,4 @@
-import { NodeOAuthClient, NodeOAuthClientOptions } from '@atproto/oauth-client-node'
+import { NodeOAuthClientOptions } from '@atproto/oauth-client-node'
 import { loadKeyset } from "./auth"
 import { createStateStore, createSessionStore } from './cookie-store'
 
@@ -21,7 +21,7 @@ async function loadOAuthConfig() {
       token_endpoint_auth_method: 'private_key_jwt',
       dpop_bound_access_tokens: true,
       jwks_uri: `https://127.0.0.1:3000/jwks.json`,
-      scope: 'atproto transition:generic',
+      scope: 'atproto'
 
       // ... rest of your metadata
     },
