@@ -36,11 +36,11 @@ export async function getOAuthClient() {
   const client = new NodeOAuthClient({
     // Expose client metadata and endpoints via your Next.js API routes.
     clientMetadata: {
-      client_id: `https://${process.env.NEXT_PUBLIC_SITE_URL}/api/client-metadata.json`,
-      redirect_uris: [`https://${process.env.NEXT_PUBLIC_SITE_URL}/api/callback`],
+      client_id: `${process.env.NEXT_PUBLIC_SITE_URL}/api/client-metadata.json`,
+      redirect_uris: [`${process.env.NEXT_PUBLIC_SITE_URL}/api/callback`],
       client_name: 'WhoisWho',
-      client_uri: `https://${process.env.NEXT_PUBLIC_SITE_URL}`,
-      logo_uri: `https://${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`,
+      client_uri: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+      logo_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/logo.png`,
       grant_types: ['authorization_code', 'refresh_token'],
       response_types: ['code'],
       application_type: 'web',
@@ -48,7 +48,7 @@ export async function getOAuthClient() {
       token_endpoint_auth_signing_alg: 'ES256',
       token_endpoint_auth_method: 'private_key_jwt',
       dpop_bound_access_tokens: true,
-      jwks_uri: `https://${process.env.NEXT_PUBLIC_SITE_URL}/jwks.json`,
+      jwks_uri: `${process.env.NEXT_PUBLIC_SITE_URL}/jwks.json`,
     },
     // Load your private keys from environment variables.
     keyset: await Promise.all([
