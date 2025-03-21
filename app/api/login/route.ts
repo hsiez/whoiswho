@@ -11,6 +11,7 @@ export async function GET(req: Request) {
     const handle = searchParams.get('handle') || 'harl3y.bsky.social'
     const state = crypto.randomBytes(32).toString('hex')
 
+    // Store state in cookie using Next.js cookies() helper
     const cookieStore = await cookies()
     cookieStore.set('oauth_state', state, {
       httpOnly: true,
@@ -21,19 +22,12 @@ export async function GET(req: Request) {
     })
 
     const url = await client.authorize(handle, { state })
-
-    // Return redirect with state cookie set
-    return new NextResponse(null, {
-      status: 302,
-      headers: {
-        'Location': url.toString(),
-      },
-    })
+    return NextResponse.redirect(url)
   } catch (err) {
     console.error('Error handling login:', err)
-    return new NextResponse(
-      JSON.stringify({ error: 'Internal Server Error' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
     )
   }
 }
