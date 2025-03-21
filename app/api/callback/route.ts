@@ -9,11 +9,9 @@ export async function GET(req: NextRequest) {
     const client = await getOAuthClient()
     const params = new URLSearchParams(req.url.split('?')[1])
     const { session, state } = await client.callback(params)
-    console.log('User authenticated as:', session.did)
 
-    const cookieStore = await cookies()
-    
     // Retrieve state from cookie using Next.js cookies() helper
+    const cookieStore = await cookies()
     const storedState = cookieStore.get('oauth_state')?.value
 
     // Validate state exists and matches
@@ -29,6 +27,8 @@ export async function GET(req: NextRequest) {
 
     // Delete the state cookie now that it's used
     cookieStore.delete('oauth_state')
+
+    console.log('User authenticated as:', session.did)
 
     const agent = new Agent(session)
     const profile = await agent.getProfile({ actor: agent.did || '' })
