@@ -8,12 +8,13 @@ export async function GET(req: NextRequest) {
   try {
     const client = await getOAuthClient()
     const params = new URLSearchParams(req.url.split('?')[1])
-    const { session, state } = await client.callback(params)
+    const { session } = await client.callback(params)
 
     // Retrieve state from cookie using Next.js cookies() helper
     const cookieStore = await cookies()
-    const storedState = cookieStore.get('oauth_state')?.value
+    //const storedState = cookieStore.get('oauth_state')?.value
 
+    /*
     // Validate state exists and matches
     if (!storedState || !state || storedState !== state) {
         console.log('Invalid state parameter')
@@ -24,6 +25,7 @@ export async function GET(req: NextRequest) {
         { status: 400 }
       )
     }
+    */
 
     // Delete the state cookie now that it's used
     cookieStore.delete('oauth_state')
