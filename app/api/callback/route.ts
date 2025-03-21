@@ -17,6 +17,9 @@ export async function GET(req: NextRequest) {
 
     // Validate state exists and matches
     if (!storedState || !incomingState || storedState !== incomingState) {
+        console.log('Invalid state parameter')
+        console.log(storedState)
+        console.log(incomingState)  
       return NextResponse.json(
         { error: 'Invalid state parameter' },
         { status: 400 }
