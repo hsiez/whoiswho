@@ -8,7 +8,7 @@ export async function GET(req: Request) {
   try {
     const client = await getOAuthClient()
     const { searchParams } = new URL(req.url)
-    const handle = searchParams.get('handle') || 'harl3y.bsky.social'
+    const handle = searchParams.get('handle') || 'bluemapagent.bsky.social'
     const state = crypto.randomBytes(32).toString('hex')
 
     // Store state in cookie using Next.js cookies() helper
